@@ -1,0 +1,16 @@
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: all .3s ease-in;
+}
+
+.card:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.card-body p {
+    margin: 0;
+}
