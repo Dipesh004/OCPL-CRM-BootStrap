@@ -2,7 +2,7 @@ import React from "react";
 import { ErrorMessage, Formik } from "formik";
 import { mixed, object, string } from "yup";
 import { Context } from "../../App";
-import './index.scss'
+import "./index.scss";
 
 const CustomErrorMessage = ({ children }) => (
   <span style={{ color: "red", fontSize: "14px" }}>{children}</span>
@@ -52,12 +52,19 @@ const validationSchema = object().shape({
 });
 
 const AgentForm = () => {
+  const resetForm = () => {
+    Array.from(document.querySelectorAll("input")).forEach(
+      (input) => (input.value = "")
+    );
+  };
+
   return (
     <Context.Consumer>
       {({ openSideBar }) => {
         return (
           <div className={`content ${openSideBar ? "" : "open"}`}>
             <Formik
+              enableReinitialize
               validationSchema={validationSchema}
               initialValues={{
                 addField: null,
@@ -68,11 +75,16 @@ const AgentForm = () => {
                 panRadio: "",
                 adharRadio: "",
               }}
-              onSubmit={(values, { setSubmitting, setFieldError }) => {
+              onSubmit={(
+                values,
+                { setSubmitting, setFieldError, resetForm }
+              ) => {
+                resetForm({ values: "" });
                 validationSchema
                   .validate(values)
                   .then(() => {
                     console.log(values);
+                    // resetForm()
                   })
                   .catch((err) => {
                     setFieldError("file", err.errors[0]);
@@ -123,7 +135,7 @@ const AgentForm = () => {
                         </div>
                         <div className="row g-3 align-items-center mb-4">
                           <div className="col">
-                            <label for="formFile" className="form-label">
+                            <label htmlFor="formFile" className="form-label">
                               Pan Card:
                             </label>
                           </div>
@@ -150,7 +162,7 @@ const AgentForm = () => {
                         </div>
                         <div className="row g-3 align-items-center mb-4">
                           <div className="col">
-                            <label for="formFile" className="form-label">
+                            <label htmlFor="formFile" className="form-label">
                               Aadhaar Card:
                             </label>
                           </div>
@@ -177,7 +189,7 @@ const AgentForm = () => {
                         </div>
                         <div className="row g-3 align-items-center mb-4">
                           <div className="col">
-                            <label for="formFile" className="form-label">
+                            <label htmlFor="formFile" className="form-label">
                               Is Address Proof valid?
                             </label>
                           </div>
@@ -195,10 +207,11 @@ const AgentForm = () => {
                                 }}
                                 id="inlineRadio1"
                                 value="yes"
+                                checked={values.addRadio === "yes"}
                               />
                               <label
                                 className="form-check-label"
-                                for="inlineRadio1"
+                                htmlFor="inlineRadio1"
                               >
                                 Yes
                               </label>
@@ -216,10 +229,11 @@ const AgentForm = () => {
                                 }}
                                 id="inlineRadio2"
                                 value="no"
+                                checked={values.addRadio === "no"}
                               />
                               <label
                                 className="form-check-label"
-                                for="inlineRadio2"
+                                htmlFor="inlineRadio2"
                               >
                                 No
                               </label>
@@ -234,7 +248,7 @@ const AgentForm = () => {
                         </div>
                         <div className="row g-3 align-items-center mb-4">
                           <div className="col">
-                            <label for="formFile" className="form-label">
+                            <label htmlFor="formFile" className="form-label">
                               Is Pan valid?
                             </label>
                           </div>
@@ -252,10 +266,11 @@ const AgentForm = () => {
                                 }}
                                 id="inlineRadio1"
                                 value="yes"
+                                checked={values.panRadio === "yes"}
                               />
                               <label
                                 className="form-check-label"
-                                for="inlineRadio1"
+                                htmlFor="inlineRadio1"
                               >
                                 Yes
                               </label>
@@ -273,10 +288,11 @@ const AgentForm = () => {
                                 }}
                                 id="inlineRadio2"
                                 value="no"
+                                checked={values.panRadio === "no"}
                               />
                               <label
                                 className="form-check-label"
-                                for="inlineRadio2"
+                                htmlFor="inlineRadio2"
                               >
                                 No
                               </label>
@@ -291,7 +307,7 @@ const AgentForm = () => {
                         </div>
                         <div className="row g-3 align-items-center mb-4">
                           <div className="col">
-                            <label for="formFile" className="form-label">
+                            <label htmlFor="formFile" className="form-label">
                               Is Aadhaar valid?
                             </label>
                           </div>
@@ -309,10 +325,11 @@ const AgentForm = () => {
                                 }}
                                 id="inlineRadio1"
                                 value="yes"
+                                checked={values.adharRadio === "yes"}
                               />
                               <label
                                 className="form-check-label"
-                                for="inlineRadio1"
+                                htmlFor="inlineRadio1"
                               >
                                 Yes
                               </label>
@@ -330,10 +347,11 @@ const AgentForm = () => {
                                 }}
                                 id="inlineRadio2"
                                 value="no"
+                                checked={values.adharRadio === "no"}
                               />
                               <label
                                 className="form-check-label"
-                                for="inlineRadio2"
+                                htmlFor="inlineRadio2"
                               >
                                 No
                               </label>
@@ -348,7 +366,7 @@ const AgentForm = () => {
                         </div>
                         <div className="row g-3 align-items-center mb-4">
                           <div className="col">
-                            <label for="formFile" className="form-label">
+                            <label htmlFor="formFile" className="form-label">
                               Remarks:
                             </label>
                           </div>
@@ -375,6 +393,7 @@ const AgentForm = () => {
                           type="button"
                           onClick={() => {
                             handleSubmit();
+                            resetForm();
                           }}
                           className="btn-upload m-2"
                           disabled={!isValid}

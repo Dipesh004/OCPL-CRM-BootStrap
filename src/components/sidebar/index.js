@@ -7,8 +7,8 @@ function SideBar({sideBarStatus}) {
     <div className={`sidebar pe-4 pb-3 ${sideBarStatus ? "" : "open"}`}>
       <nav className="navbar bg-secondary navbar-dark">
         <NavLink to="/" className="navbar-brand mx-4 mb-3">
-          <h3 class="text-primary">
-            <i class="fa fa-user-edit me-2"></i>OCPL Finance
+          <h3 className="text-primary">
+            <i className="fa fa-user-edit me-2"></i>OCPL Finance
           </h3>
         </NavLink>
         <div className="d-flex align-items-center ms-4 mb-4">
