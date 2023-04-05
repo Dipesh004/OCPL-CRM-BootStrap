@@ -12,12 +12,18 @@ export const Context= createContext();
 
 function App() {
   const [openSideBar, setOpenSideBar] = useState(true);
+  const [LightModeOn, setLightModeStatus] = useState(true);
+  const handleLightMode= ()=>{
+    setLightModeStatus(!LightModeOn);
+  }
   const handleSideBar= ()=>{
     setOpenSideBar(!openSideBar);
   }
   return (
     <div className="App">
-      <Context.Provider value={{ openSideBar, handleSideBar }}>
+      <Context.Provider
+        value={{ openSideBar, handleSideBar, LightModeOn, handleLightMode }}
+      >
         <NavBar />
         <Routes>
           <Route path="/" element={<DashBoard />} />
@@ -25,7 +31,7 @@ function App() {
           <Route path="/transaction" element={<Transaction />} />
           {/* private */}
           <Route path="/agent" element={<Agent />} />
-          <Route path="/agentForm" element={<AgentForm />} />
+          <Route path="/agentForm/:clientName" element={<AgentForm />} />
         </Routes>
         <Footer />
       </Context.Provider>

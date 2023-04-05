@@ -1,3 +1,11 @@
+.client.light{
+    .btn-pay{
+        color: white;
+    }
+    .modal-body{
+        background:#e6e7eb;
+    }
+}
 .btn-pay{
     width: 6rem;
     background-color: #514ce8 !important;
@@ -10,7 +18,7 @@
     background-color: #4540c7 !important;
 }
 .modal-body{
-    background: black !important;
+    background: black ;
     .container{
         padding-top: 0 !important;
     }

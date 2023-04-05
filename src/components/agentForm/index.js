@@ -3,6 +3,7 @@ import { ErrorMessage, Formik } from "formik";
 import { mixed, object, string } from "yup";
 import { Context } from "../../App";
 import "./index.scss";
+import { useParams } from "react-router-dom";
 
 const CustomErrorMessage = ({ children }) => (
   <span style={{ color: "red", fontSize: "14px" }}>{children}</span>
@@ -52,17 +53,25 @@ const validationSchema = object().shape({
 });
 
 const AgentForm = () => {
+
   const resetForm = () => {
     Array.from(document.querySelectorAll("input")).forEach(
       (input) => (input.value = "")
     );
   };
 
+  // const { username } = (props.location && props.location.state) || {};
+  const { clientName } = useParams();
+
   return (
     <Context.Consumer>
-      {({ openSideBar }) => {
+      {({ openSideBar, LightModeOn }) => {
         return (
-          <div className={`content ${openSideBar ? "" : "open"}`}>
+          <div
+            className={`content content ${LightModeOn ? "light" : ""} ${
+              openSideBar ? "" : "open"
+            }`}
+          >
             <Formik
               enableReinitialize
               validationSchema={validationSchema}
@@ -103,8 +112,15 @@ const AgentForm = () => {
               }) => (
                 <div className="container-fluid pt-4 px-4">
                   <div className="col">
-                    <div className="bg-secondary rounded h-100 p-4">
-                      <h6 className="mb-4">Upload the Documents Here</h6>
+                    <div
+                      className={`${
+                        LightModeOn ? "bg-white text-dark" : "bg-secondary"
+                      } rounded h-100 p-4`}
+                    >
+                      <h1>hii</h1>
+                      <h6 className={`mb-4 ${LightModeOn ? "text-dark" : ""}`}>
+                        Upload the Documents Here
+                      </h6>
                       <div className="mb-3">
                         <div className="row g-3 align-items-center mb-4">
                           <div className="col">

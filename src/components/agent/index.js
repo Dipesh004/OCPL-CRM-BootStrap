@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import agentData from "./data/data";
 import { Context } from "../../App";
+import { Link } from "react-router-dom";
 
 const Agent = () => {
+  
   return (
     <Context.Consumer>
-      {({ openSideBar }) => {
+      {({ openSideBar, LightModeOn }) => {
         return (
-          <div className={`content ${openSideBar ? "" : "open"}`}>
-            <div className="container-fluid pt-4 px-4">
-              <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">New Loan Request</h6>
+          <div
+            className={`content content ${LightModeOn ? "light" : ""} ${
+              openSideBar ? "" : "open"
+            }`}
+          >
+            <div className="container-fluid pt-4 px-4 min-vh-100">
+              <div
+                className={`${
+                  LightModeOn ? "bg-white" : "bg-secondary"
+                } rounded h-100 p-4`}
+              >
+                <h6 className="mb-4">New Loan Request</h6>
                 <div className="table-responsive">
-                  <table class="table table-hover">
+                  <table className="table table-hover">
                     <thead>
-                      <tr>
+                      <tr
+                        className={`${
+                          LightModeOn ? "text-dark" : "text-white"
+                        } ms-3`}
+                      >
                         <th scope="col">Name</th>
                         <th scope="col">Address</th>
                         <th scope="col">Phone</th>
@@ -26,13 +40,21 @@ const Agent = () => {
                     <tbody>
                       {agentData.map((val, key) => {
                         return (
-                          <tr key={key}>
+                          <tr key={key} className={`${LightModeOn ? "text-dark" : ""}`}>
                             <td>{val.name}</td>
                             <td>{val.address}</td>
                             <td>{val.phone}</td>
                             <td>{val.pan}</td>
                             <td>{val.aadhaar}</td>
-                            <td>{val.action}</td>
+                            <td>
+                              <Link
+                                to={{
+                                  pathname: `/agentForm/${val.name}`,
+                                }}
+                              >
+                                <div className=''>View</div>
+                              </Link>
+                            </td>
                           </tr>
                         );
                       })}

@@ -77,17 +77,27 @@ const DashBoard = () => {
 
   return (
     <Context.Consumer>
-      {({ openSideBar }) => {
+      {({ openSideBar, LightModeOn }) => {
         return (
-          <div className={`content ${openSideBar ? "" : "open"}`}>
+          <div
+            className={`content ${LightModeOn ? "light" : ""} ${
+              openSideBar ? "" : "open"
+            }`}
+          >
             <div className="container-fluid pt-4 px-4">
               <div className="row g-4">
                 {data.map((curElem) => {
                   return (
                     <div className="col-sm-6 col-xl-3" key={curElem.id}>
-                      <div className="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                      <div
+                        className={`${
+                          LightModeOn ? "bg-white" : "bg-secondary"
+                        } rounded d-flex align-items-center justify-content-between p-4`}
+                      >
                         {curElem.icon}
-                        <div className="ms-3">
+                        <div
+                          className={`${LightModeOn ? "text-dark" : " "} ms-3`}
+                        >
                           <p className="mb-2">{curElem.title}</p>
                           <h6 className="mb-0">{curElem.amount}</h6>
                           {/* <p style={{ margin: "0", color: "#39FF14" }}>
@@ -103,7 +113,11 @@ const DashBoard = () => {
               <div className="container-fluid pt-4 px-4">
                 <div className="row g-4">
                   <div className="col-sm-12 col-xl-6">
-                    <div className="bg-secondary text-center rounded p-4">
+                    <div
+                      className={`${
+                        LightModeOn ? "bg-white" : "bg-secondary"
+                      } text-center rounded p-4`}
+                    >
                       <div className="d-flex align-items-center justify-content-between mb-4">
                         <h6 className="mb-0">Sales</h6>
                         <Link to="">Show All</Link>
@@ -112,7 +126,11 @@ const DashBoard = () => {
                     </div>
                   </div>
                   <div className="col-sm-12 col-xl-6">
-                    <div className="bg-secondary text-center rounded p-4">
+                    <div
+                      className={`${
+                        LightModeOn ? "bg-white" : "bg-secondary"
+                      } bg-secondary text-center rounded p-4`}
+                    >
                       <div className="d-flex align-items-center justify-content-between mb-4">
                         <h6 className="mb-0">Salse & Revenue</h6>
                         <Link to="">Show All</Link>
@@ -123,7 +141,11 @@ const DashBoard = () => {
                 </div>
               </div>
               <div className="container-fluid pt-4 px-4">
-                <div className="bg-secondary text-center rounded p-4">
+                <div
+                  className={`${
+                    LightModeOn ? "bg-white" : "bg-secondary"
+                  } bg-secondary text-center rounded p-4`}
+                >
                   <div className="d-flex align-items-center justify-content-between mb-4">
                     <h6 className="mb-0">New Loan Request</h6>
                     <Link to="">Show All</Link>
@@ -131,7 +153,9 @@ const DashBoard = () => {
                   <div className="table-responsive">
                     <table className="table text-start align-middle table-bordered table-hover mb-0">
                       <thead>
-                        <tr className="text-white">
+                        <tr
+                          className={`${LightModeOn ? "text-dark" : "text-white"} ms-3`}
+                        >
                           <th scope="col">Name</th>
                           <th scope="col">Gender</th>
                           <th scope="col">Amount</th>
@@ -142,7 +166,7 @@ const DashBoard = () => {
                       <tbody>
                         {newLoanRequest.map((val, key) => {
                           return (
-                            <tr key={key}>
+                            <tr key={key} className={`${LightModeOn ? "text-dark" : ""}`}>
                               <td>{val.name}</td>
                               <td>{val.gender}</td>
                               <td>{val.amount}</td>
